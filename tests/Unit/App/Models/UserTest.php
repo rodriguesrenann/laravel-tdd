@@ -3,78 +3,40 @@
 namespace Tests\Unit\App\Models;
 
 use App\Models\User;
-use PHPUnit\Framework\TestCase;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserTest extends TestCase
+class UserTest extends ModelTestCase
 {
     protected function model(): Model
     {
         return new User();
     }
 
-    /**
-     * Testa se o model tem as devidas traits
-     *
-     * @return void
-     */
-    public function test_model_has_traits()
+    protected function expectedCasts(): array
     {
-        $traits = array_keys(class_uses($this->model()));
-
-        $expectedTraits = [
-            HasApiTokens::class,
-            HasFactory::class,
-            Notifiable::class
+        return  [
+            'email_verified_at' => 'datetime',
         ];
-
-        $this->assertEquals($expectedTraits, $traits);
     }
 
-    /**
-     * Testa se o model tem os devidos fillables
-     *
-     * @return void
-     */
-    public function test_model_has_fillables()
+    protected function expectedFillables(): array
     {
-        $fillables = $this->model()->getFillable();
-
-        $expectedFillables = [
+        return [
             'name',
             'email',
             'password'
         ];
-
-        $this->assertEquals($expectedFillables, $fillables);
     }
 
-    /**
-     * Testa se o incrementing esta falso
-     *
-     * @return void
-     */
-    public function test_incrementing_is_false()
+    protected function expectedTraits(): array
     {
-        $this->assertFalse($this->model()->incrementing);
-    }
-
-    /**
-     * Testa se o model tem os devidos casts
-     *
-     * @return void
-     */
-    public function test_model_has_casts()
-    {
-        $expectedCasts = [
-            'email_verified_at' => 'datetime',
+        return  [
+            HasApiTokens::class,
+            HasFactory::class,
+            Notifiable::class
         ];
-
-        $casts = $this->model()->getCasts();
-
-        $this->assertEquals($expectedCasts, $casts);
     }
 }
