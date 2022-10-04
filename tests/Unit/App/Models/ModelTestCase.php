@@ -41,10 +41,10 @@ abstract class ModelTestCase extends TestCase
      *
      * @return void
      */
-    public function test_incrementing_is_false()
+   /*  public function test_incrementing_is_false()
     {
         $this->assertFalse($this->model()->incrementing);
-    }
+    } */
 
     /**
      * Testa se o model tem os devidos casts
@@ -57,4 +57,5 @@ abstract class ModelTestCase extends TestCase
 
         $this->assertEquals($this->expectedCasts(), $casts);
     }
+
 }

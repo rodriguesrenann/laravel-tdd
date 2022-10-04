@@ -19,6 +19,7 @@ class UserTest extends ModelTestCase
     {
         return  [
             'email_verified_at' => 'datetime',
+            'id' => 'int'
         ];
     }
 
