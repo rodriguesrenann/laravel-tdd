@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use App\Presenters\PaginationInterface;
+use App\Presenters\PaginationPresenter;
 use Illuminate\Database\Eloquent\Model;
 use App\Repositories\Contracts\UserRepositoryInterface;
 
@@ -18,6 +20,13 @@ class UserRepository implements UserRepositoryInterface
     public function getAll(): array
     {
         return $this->model->get()->toArray();
+    }
+
+    public function paginate(): PaginationInterface
+    {
+        $users = $this->model->paginate();
+
+        return new PaginationPresenter($users);
     }
 
     public function create(array $data): object
